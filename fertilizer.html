@@ -6,8 +6,7 @@
 
     <title>Fertilizer Recommendation - AgriPredict</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="style.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
           rel="stylesheet">
@@ -17,8 +16,6 @@
 </head>
 
 <body>
-
-<!-- ================= NAVBAR ================= -->
 
 <nav>
     <div class="logo">
@@ -33,8 +30,6 @@
     </ul>
 </nav>
 
-
-<!-- ================= FERTILIZER FORM ================= -->
 
 <section class="prediction"
          style="min-height:100vh;
@@ -57,13 +52,10 @@
                      flex-direction:column;
                      gap:20px;">
 
-            <!-- CROP -->
             <input type="hidden"
                    name="crop"
                    value="{{ crop }}">
 
-
-            <!-- ================= CROP VARIETY ================= -->
 
             <div style="display:flex;
                         flex-direction:column;
@@ -94,8 +86,6 @@
 
             </div>
 
-
-            <!-- ================= SOIL TYPE ================= -->
 
             <div style="display:flex;
                         flex-direction:column;
@@ -151,8 +141,6 @@
             </div>
 
 
-            <!-- ================= SEASON ================= -->
-
             <div style="display:flex;
                         flex-direction:column;
                         gap:8px;
@@ -191,8 +179,6 @@
 
             </div>
 
-
-            <!-- ================= IRRIGATION ================= -->
 
             <div style="display:flex;
                         flex-direction:column;
@@ -241,8 +227,6 @@
 
             </div>
 
-
-            <!-- ================= REGION ================= -->
 
             <div style="display:flex;
                         flex-direction:column;
@@ -296,8 +280,6 @@
             </div>
 
 
-            <!-- ================= PLANTATION DATE ================= -->
-
             <div style="display:flex;
                         flex-direction:column;
                         gap:8px;
@@ -324,8 +306,6 @@
 
             </div>
 
-
-            <!-- ================= CROP HEIGHT ================= -->
 
             <div style="display:flex;
                         flex-direction:column;
@@ -357,8 +337,6 @@
             </div>
 
 
-            <!-- ================= SUBMIT ================= -->
-
             <button type="submit"
                     class="btn"
                     style="width:100%;
@@ -382,8 +360,6 @@
 
 </section>
 
-
-<!-- ================= CROP VARIETY JAVASCRIPT ================= -->
 
 <script>
 
@@ -446,8 +422,7 @@ varieties.forEach(function(variety) {
 
 </script>
 
-
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
