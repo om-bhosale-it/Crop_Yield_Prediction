@@ -8,8 +8,7 @@
 
     <title>Fertilizer Recommendation</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/fertilizer_menu.css') }}">
+    <link rel="stylesheet" href="fertilizer_menu.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
@@ -25,8 +24,6 @@
 
 <div class="container">
 
-
-    <!-- HEADER -->
 
     <div class="header">
 
@@ -57,8 +54,6 @@
     </div>
 
 
-    <!-- NO RECOMMENDATION -->
-
     {% if no_recommendation %}
 
         <div class="no-result">
@@ -87,10 +82,6 @@
 
         <div class="cards">
 
-
-            <!-- ================================= -->
-            <!-- FERTILIZER CARD -->
-            <!-- ================================= -->
 
             <div class="card">
 
@@ -133,8 +124,6 @@
                             </p>
 
 
-                            <!-- FERTILIZER DOSE BUTTON -->
-
                             <a href="{{ url_for(
                                 'fertilizer_dose',
                                 crop=crop,
@@ -171,10 +160,6 @@
             </div>
 
 
-
-            <!-- ================================= -->
-            <!-- WEED CONTROL CARD -->
-            <!-- ================================= -->
 
             <div class="card">
 
@@ -217,19 +202,16 @@
                         </p>
 
 
-                        <!-- WEED CONTROL BUTTON -->
+                        <a href="{{ url_for('weed_control',
+                            crop=crop,
+                            variety=variety,
+                            days=days,
+                            height=height,
+                            weedicide=weedicide,
+                            weed_dose=weed_dose) }}"
+                           class="btn green">
 
-                       <a href="{{ url_for('weed_control',
-    crop=crop,
-    variety=variety,
-    days=days,
-    height=height,
-    weedicide=weedicide,
-    weed_dose=weed_dose) }}"
-   class="btn green">
-
-    Open Weed Control
-</a>
+                            Open Weed Control
                             <i class="fa-solid fa-arrow-right"></i>
 
                         </a>
@@ -270,8 +252,6 @@
     {% endif %}
 
 
-
-    <!-- BACK HOME -->
 
     <a href="{{ url_for('home') }}"
        class="back">
