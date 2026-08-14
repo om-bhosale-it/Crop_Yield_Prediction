@@ -6,8 +6,7 @@
 
     <title>Fertilizer Dose</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="style.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
@@ -165,8 +164,6 @@
 
 <body>
 
-<!-- NAVBAR -->
-
 <nav>
     <div class="logo">
         <i class="fa-solid fa-wheat-awn"></i>
@@ -185,8 +182,6 @@
 
     <div class="dose-container">
 
-        <!-- HEADER -->
-
         <div class="dose-header">
 
             <i class="fa-solid fa-seedling"></i>
@@ -197,26 +192,24 @@
 
             <div class="crop-info">
 
-               <div class="info-box">
-    <strong>Crop Variety</strong>
-    <span class="info-value">{{ variety }}</span>
-</div>
+                <div class="info-box">
+                    <strong>Crop Variety</strong>
+                    <span class="info-value">{{ variety }}</span>
+                </div>
 
-<div class="info-box">
-    <strong>Crop Age</strong>
-    <span class="info-value">{{ days }} days</span>
-</div>
+                <div class="info-box">
+                    <strong>Crop Age</strong>
+                    <span class="info-value">{{ days }} days</span>
+                </div>
 
-<div class="info-box">
-    <strong>Crop Height</strong>
-    <span class="info-value">{{ height }} feet</span>
-</div>
+                <div class="info-box">
+                    <strong>Crop Height</strong>
+                    <span class="info-value">{{ height }} feet</span>
+                </div>
             </div>
 
         </div>
 
-
-        <!-- FERTILIZER -->
 
         <div class="fertilizer-card">
 
