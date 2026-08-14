@@ -4,8 +4,7 @@ from flask import Flask, render_template, request
 import joblib
 
 # ✅ इथे template_folder='.' टाकले आहे जेणेकरून Flask बाहेरच्या HTML फाईल्स ओळखेल
-app = Flask(__name__, template_folder='.')
-
+app = Flask(__name__, template_folder='.', static_folder='.')
 
 # ==============================
 # LOAD ML MODEL
