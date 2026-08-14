@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriPredict | Smart AI Farming</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+    <div class="bg-image"></div>
+
+    <nav>
+        <div class="logo">
+            <i class="fa-solid fa-wheat-awn"></i> AgriPredict
+        </div>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#prediction">Prediction</a></li>
+            <li><a href="#features">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <span class="badge"><i class="fa-solid fa-bolt"></i> Next-Gen AI Agriculture</span>
+            <h1>Crop Yield & Care Prediction</h1>
+            <p>Empowering farmers with AI-driven insights, smart fertilizer dosage, and crop health analytics.</p>
+            <a href="#prediction">
+                <button type="button" class="btn-primary">
+                    Get Started <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Smart Agricultural Services</h2>
+        <div class="card-container">
+            <div class="card tilt-card">
+                <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>Yield Prediction</h3>
+                <p>Advanced machine learning models to forecast accurate crop production based on weather & soil data.</p>
+            </div>
+            <div class="card tilt-card">
+                <div class="card-icon"><i class="fa-solid fa-flask"></i></div>
+                <h3>Fertilizer Guide</h3>
+                <p>Optimal fertilizer dose recommendations customized for your crop's precise growth stage.</p>
+            </div>
+            <div class="card tilt-card">
+                <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
+                <h3>Weed Control</h3>
+                <p>Effective weedicide recommendations and safety precautions to protect your yield.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="prediction" id="prediction">
+        <h2>AI Yield Predictor</h2>
+
+        {% if error %}
+        <div class="error-box">
+            <i class="fa-solid fa-triangle-exclamation"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <form action="/predict" method="POST" class="glass-form">
+            <div class="input-group">
+                <label for="crop"><i class="fa-solid fa-plant-wilt"></i> Select Crop</label>
+                <select name="crop" id="crop" required>
+                    <option value="">-- Select Crop --</option>
+                    <option value="Sugarcane">Sugarcane</option>
+                    <option value="Wheat">Wheat</option>
+                    <option value="Rice">Rice</option>
+                    <option value="Cotton">Cotton</option>
+                    <option value="Maize">Maize</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="rainfall"><i class="fa-solid fa-cloud-showers-heavy"></i> Rainfall (mm)</label>
+                <input type="number" id="rainfall" name="rainfall" step="any" placeholder="e.g. 1200" required>
+            </div>
+
+            <div class="input-group">
+                <label for="temperature"><i class="fa-solid fa-temperature-high"></i> Temperature (°C)</label>
+                <input type="number" id="temperature" name="temperature" step="any" placeholder="e.g. 28" required>
+            </div>
+
+            <div class="input-group">
+                <label for="humidity"><i class="fa-solid fa-droplet"></i> Humidity (%)</label>
+                <input type="number" id="humidity" name="humidity" step="any" placeholder="e.g. 70" required>
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Predict Yield <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </button>
+        </form>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

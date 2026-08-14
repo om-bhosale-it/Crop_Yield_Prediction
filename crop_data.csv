@@ -1,0 +1,16 @@
+Crop,Rainfall,Temperature,Humidity,Yield
+Sugarcane,20,30,20,72
+Sugarcane,25,31,25,75
+Sugarcane,30,29,30,78
+Wheat,15,22,40,45
+Wheat,18,23,42,48
+Wheat,20,24,45,50
+Rice,35,28,80,90
+Rice,40,30,85,95
+Rice,38,29,82,92
+Cotton,18,32,45,55
+Cotton,20,33,50,58
+Cotton,22,34,52,60
+Maize,22,27,60,65
+Maize,24,28,62,68
+Maize,26,29,65,70

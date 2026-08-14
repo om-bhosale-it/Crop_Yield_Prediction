@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Fertilizer Recommendation - AgriPredict</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav>
+    <div class="logo">
+        <i class="fa-solid fa-wheat-awn"></i>
+        AgriPredict
+    </div>
+
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#prediction">Prediction</a></li>
+        <li><a href="/#features">Services</a></li>
+    </ul>
+</nav>
+
+
+<!-- ================= FERTILIZER FORM ================= -->
+
+<section class="prediction"
+         style="min-height:100vh;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                padding-top:100px;
+                padding-bottom:50px;">
+
+    <div class="form-container"
+         style="width:100%;
+                max-width:480px;
+                margin:auto;">
+
+        <h2>🌱 Fertilizer Recommendation</h2>
+
+        <form action="/fertilizer_result"
+              method="POST"
+              style="display:flex;
+                     flex-direction:column;
+                     gap:20px;">
+
+            <!-- CROP -->
+            <input type="hidden"
+                   name="crop"
+                   value="{{ crop }}">
+
+
+            <!-- ================= CROP VARIETY ================= -->
+
+            <div style="display:flex;
+                        flex-direction:column;
+                        gap:8px;
+                        text-align:left;">
+
+                <label for="variety"
+                       style="color:#2e7d32;
+                              font-weight:600;">
+
+                    <i class="fa-solid fa-seedling"></i>
+                    Crop Variety
+
+                </label>
+
+                <select id="variety"
+                        name="variety"
+                        required
+                        style="width:100%;
+                               padding:12px;
+                               border:2px solid #e0e0e0;
+                               border-radius:10px;
+                               box-sizing:border-box;">
+
+                    <option value="">Select Variety</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ================= SOIL TYPE ================= -->
+
+            <div style="display:flex;
+                        flex-direction:column;
+                        gap:8px;
+                        text-align:left;">
+
+                <label for="soil_type"
+                       style="color:#2e7d32;
+                              font-weight:600;">
+
+                    <i class="fa-solid fa-mountain"></i>
+                    Soil Type
+
+                </label>
+
+                <select id="soil_type"
+                        name="soil_type"
+                        required
+                        style="width:100%;
+                               padding:12px;
+                               border:2px solid #e0e0e0;
+                               border-radius:10px;
+                               box-sizing:border-box;">
+
+                    <option value="">Select Soil Type</option>
+
+                    <option value="Black Soil">
+                        Black Soil
+                    </option>
+
+                    <option value="Red Soil">
+                        Red Soil
+                    </option>
+
+                    <option value="Loamy Soil">
+                        Loamy Soil
+                    </option>
+
+                    <option value="Sandy Soil">
+                        Sandy Soil
+                    </option>
+
+                    <option value="Clay Soil">
+                        Clay Soil
+                    </option>
+
+                    <option value="Alluvial Soil">
+                        Alluvial Soil
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ================= SEASON ================= -->
+
+            <div style="display:flex;
+                        flex-direction:column;
+                        gap:8px;
+                        text-align:left;">
+
+                <label for="season"
+                       style="color:#2e7d32;
+                              font-weight:600;">
+
+                    <i class="fa-solid fa-cloud-sun"></i>
+                    Season
+
+                </label>
+
+                <select id="season"
+                        name="season"
+                        required
+                        style="width:100%;
+                               padding:12px;
+                               border:2px solid #e0e0e0;
+                               border-radius:10px;
+                               box-sizing:border-box;">
+
+                    <option value="">Select Season</option>
+
+                    <option value="Kharif">Kharif</option>
+                    <option value="Rabi">Rabi</option>
+                    <option value="Summer">Summer</option>
+                    <option value="Suru">Suru</option>
+                    <option value="Adsali">Adsali</option>
+                    <option value="Pre-seasonal">
+                        Pre-seasonal
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ================= IRRIGATION ================= -->
+
+            <div style="display:flex;
+                        flex-direction:column;
+                        gap:8px;
+                        text-align:left;">
+
+                <label for="irrigation"
+                       style="color:#2e7d32;
+                              font-weight:600;">
+
+                    <i class="fa-solid fa-droplet"></i>
+                    Irrigation
+
+                </label>
+
+                <select id="irrigation"
+                        name="irrigation"
+                        required
+                        style="width:100%;
+                               padding:12px;
+                               border:2px solid #e0e0e0;
+                               border-radius:10px;
+                               box-sizing:border-box;">
+
+                    <option value="">
+                        Select Irrigation Type
+                    </option>
+
+                    <option value="Rainfed">
+                        Rainfed
+                    </option>
+
+                    <option value="Drip">
+                        Drip Irrigation
+                    </option>
+
+                    <option value="Sprinkler">
+                        Sprinkler Irrigation
+                    </option>
+
+                    <option value="Flood">
+                        Flood / Surface Irrigation
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ================= REGION ================= -->
+
+            <div style="display:flex;
+                        flex-direction:column;
+                        gap:8px;
+                        text-align:left;">
+
+                <label for="region"
+                       style="color:#2e7d32;
+                              font-weight:600;">
+
+                    <i class="fa-solid fa-location-dot"></i>
+                    Region
+
+                </label>
+
+                <select id="region"
+                        name="region"
+                        required
+                        style="width:100%;
+                               padding:12px;
+                               border:2px solid #e0e0e0;
+                               border-radius:10px;
+                               box-sizing:border-box;">
+
+                    <option value="">
+                        Select Region
+                    </option>
+
+                    <option value="Western Maharashtra">
+                        Western Maharashtra
+                    </option>
+
+                    <option value="Vidarbha">
+                        Vidarbha
+                    </option>
+
+                    <option value="Marathwada">
+                        Marathwada
+                    </option>
+
+                    <option value="Khandesh">
+                        Khandesh
+                    </option>
+
+                    <option value="Konkan">
+                        Konkan
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- ================= PLANTATION DATE ================= -->
+
+            <div style="display:flex;
+                        flex-direction:column;
+                        gap:8px;
+                        text-align:left;">
+
+                <label for="plant_date"
+                       style="color:#2e7d32;
+                              font-weight:600;">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+                    Plantation Date
+
+                </label>
+
+                <input type="date"
+                       id="plant_date"
+                       name="plant_date"
+                       required
+                       style="width:100%;
+                              padding:12px;
+                              border:2px solid #e0e0e0;
+                              border-radius:10px;
+                              box-sizing:border-box;">
+
+            </div>
+
+
+            <!-- ================= CROP HEIGHT ================= -->
+
+            <div style="display:flex;
+                        flex-direction:column;
+                        gap:8px;
+                        text-align:left;">
+
+                <label for="height"
+                       style="color:#2e7d32;
+                              font-weight:600;">
+
+                    <i class="fa-solid fa-ruler-vertical"></i>
+                    Current Crop Height (Feet)
+
+                </label>
+
+                <input type="number"
+                       id="height"
+                       name="height"
+                       step="0.1"
+                       min="0"
+                       placeholder="e.g. 4.5"
+                       required
+                       style="width:100%;
+                              padding:12px;
+                              border:2px solid #e0e0e0;
+                              border-radius:10px;
+                              box-sizing:border-box;">
+
+            </div>
+
+
+            <!-- ================= SUBMIT ================= -->
+
+            <button type="submit"
+                    class="btn"
+                    style="width:100%;
+                           padding:14px;
+                           background:#2E7D32;
+                           color:white;
+                           border:none;
+                           border-radius:10px;
+                           font-size:16px;
+                           font-weight:600;
+                           cursor:pointer;">
+
+                Continue
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CROP VARIETY JAVASCRIPT ================= -->
+
+<script>
+
+const cropVarieties = {
+
+    "Sugarcane": [
+        "Co 8014",
+        "Co 86032",
+        "Co 92005",
+        "Phule 09057"
+    ],
+
+    "Wheat": [
+        "N-5439",
+        "NI-5643"
+    ],
+
+    "Rice": [
+        "Radhanagari 185-2",
+        "Darna",
+        "Phule Maval-7"
+    ],
+
+    "Maize": [
+        "Hunis",
+        "Manjri",
+        "Phule Champion (QMH-1819)",
+        "Phule Umed (QMH-1701)"
+    ],
+
+    "Cotton": [
+        "Savitri (RHR-253)",
+        "Nira (Kop-498)"
+    ]
+
+};
+
+
+const crop = "{{ crop }}";
+
+const varietySelect =
+    document.getElementById("variety");
+
+const varieties =
+    cropVarieties[crop] || [];
+
+
+varieties.forEach(function(variety) {
+
+    const option =
+        document.createElement("option");
+
+    option.value = variety;
+
+    option.textContent = variety;
+
+    varietySelect.appendChild(option);
+
+});
+
+</script>
+
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>

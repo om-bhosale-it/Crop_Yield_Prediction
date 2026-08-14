@@ -1,0 +1,30 @@
+Crop,Variety,Soil_Type,Season,Irrigation,Region,Min_Days,Max_Days,Fertilizer,Dose,Weedicide,Weed_Dose
+Sugarcane,Any,Any,Any,Any,Any,0,30,DAP + MOP + Zinc Sulphate,100 kg + 50 kg + 10 kg/acre,Pre-emergence Atrazine 50 WP,1 kg/acre
+Sugarcane,Any,Any,Any,Any,Any,31,60,Urea + MOP + Zinc Sulphate + Micronutrient,65 kg + 25 kg + 10 kg + 5 kg/acre,2-4-D Amine + Hand Weeding + Earthing Up,500 ml/acre + As Required + Recommended
+Sugarcane,Any,Any,Any,Any,Any,61,90,Urea + MOP + Boron,65 kg + 25 kg + 5 kg/acre,Metribuzin 70 WP + Hand Weeding,700 g/acre + As Required
+Sugarcane,Any,Any,Any,Any,Any,91,150,Urea + Micronutrient Spray,50 kg + 5 kg/acre,Hand Weeding + Earthing Up,Recommended
+Sugarcane,Any,Any,Any,Any,Any,151,210,NPK 19:19:19 + Magnesium Sulphate,5 g/L + 10 kg/acre,,
+Sugarcane,Any,Any,Any,Any,Any,211,270,MOP + Zinc Sulphate,25 kg + 10 kg/acre,,
+Sugarcane,Any,Any,Any,Any,Any,271,360,Micronutrient Spray + Boron,As per Label + 5 kg/acre,,
+Sugarcane,Any,Any,Any,Any,Any,361,540,No Major Fertilizer Required,Monitor Crop,,
+Wheat,Any,Any,Any,Any,Any,0,20,DAP + Zinc Sulphate,50 kg + 10 kg/acre,Pendimethalin 30 EC,1 L/acre
+Wheat,Any,Any,Any,Any,Any,21,40,Urea + MOP,45 kg + 20 kg/acre,Hand Weeding,Recommended
+Wheat,Any,Any,Any,Any,Any,41,60,Urea + Zinc Sulphate + Sulphur,45 kg + 10 kg + 15 kg/acre,Clodinafop + Hand Weeding,400 ml/acre + As Required
+Wheat,Any,Any,Any,Any,Any,61,90,NPK 19:19:19 + Micronutrient,5 g/L + 5 kg/acre,,
+Wheat,Any,Any,Any,Any,Any,91,130,No Fertilizer Required,Monitor Crop,,
+Rice,Any,Any,Any,Any,Any,0,20,DAP + Zinc Sulphate,40 kg + 10 kg/acre,Butachlor 50 EC,1.5 L/acre
+Rice,Any,Any,Any,Any,Any,21,40,Urea + Potash,35 kg + 20 kg/acre,Pretilachlor + Hand Weeding,600 ml/acre + As Required
+Rice,Any,Any,Any,Any,Any,41,70,Urea + Potash + Zinc Sulphate,35 kg + 20 kg + 10 kg/acre,Bispyribac Sodium + Hand Weeding,120 ml/acre + As Required
+Rice,Any,Any,Any,Any,Any,71,100,NPK 19:19:19 + Micronutrient,5 g/L + 5 kg/acre,,
+Rice,Any,Any,Any,Any,Any,101,150,No Fertilizer Required,Monitor Crop,,
+Maize,Any,Any,Any,Any,Any,0,20,DAP + Zinc Sulphate,45 kg + 10 kg/acre,Atrazine 50 WP,1 kg/acre
+Maize,Any,Any,Any,Any,Any,21,40,Urea + Potash,50 kg + 20 kg/acre,Hand Weeding,Recommended
+Maize,Any,Any,Any,Any,Any,41,60,Urea + MOP + Zinc Sulphate,50 kg + 20 kg + 10 kg/acre,Tembotrione + Atrazine,120 ml/acre + 500 g/acre
+Maize,Any,Any,Any,Any,Any,61,90,NPK 19:19:19 + Boron,5 g/L + 5 kg/acre,,
+Maize,Any,Any,Any,Any,Any,91,120,No Fertilizer Required,Monitor Crop,,
+Cotton,Any,Any,Any,Any,Any,0,25,DAP + Zinc Sulphate,50 kg + 10 kg/acre,Pendimethalin 30 EC,1 L/acre
+Cotton,Any,Any,Any,Any,Any,26,50,Urea + Potash,45 kg + 20 kg/acre,Quizalofop Ethyl + Hand Weeding,400 ml/acre + As Required
+Cotton,Any,Any,Any,Any,Any,51,80,NPK 19:19:19 + Urea + Magnesium Sulphate,5 g/L + 30 kg + 10 kg/acre,Glyphosate (Directed Spray) + Quizalofop Ethyl,1 L/acre + 400 ml/acre
+Cotton,Any,Any,Any,Any,Any,81,120,Urea + MOP + Micronutrient,40 kg + 20 kg + 5 kg/acre,,
+Cotton,Any,Any,Any,Any,Any,121,150,Micronutrient Spray + Boron,As per Label + 5 kg/acre,,
+Cotton,Any,Any,Any,Any,Any,151,180,No Fertilizer Required,Monitor Crop,,
