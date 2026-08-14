@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,257 +14,88 @@
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 </head>
-
 
 <body>
 
-
 <div class="container">
 
-
     <div class="header">
-
-        <h1>
-            🌾 Fertilizer Recommendation
-        </h1>
-
-        <p>
-            Crop:
-            <strong>{{ crop }}</strong>
-        </p>
-
-        <p>
-            Variety:
-            <strong>{{ variety }}</strong>
-        </p>
-
-        <p>
-            Crop Age:
-            <strong>{{ days }} days</strong>
-        </p>
-
-        <p>
-            Crop Height:
-            <strong>{{ height }} feet</strong>
-        </p>
-
+        <h1>🌾 Fertilizer Recommendation</h1>
+        <p>Crop: <strong>{{ crop }}</strong></p>
+        <p>Variety: <strong>{{ variety }}</strong></p>
+        <p>Crop Age: <strong>{{ days }} days</strong></p>
+        <p>Crop Height: <strong>{{ height }} feet</strong></p>
     </div>
-
 
     {% if no_recommendation %}
 
         <div class="no-result">
-
-            <h2>
-                ⚠️ No Recommendation Found
-            </h2>
-
-            <p>
-                No matching recommendation was found for the
-                selected crop conditions.
-            </p>
-
-            <a href="{{ url_for('fertilizer', crop=crop) }}"
-               class="btn">
-
+            <h2>⚠️ No Recommendation Found</h2>
+            <p>No matching recommendation was found for the selected crop conditions.</p>
+            <a href="{{ url_for('fertilizer', crop=crop) }}" class="btn">
                 ← Try Again
-
             </a>
-
         </div>
-
 
     {% else %}
 
-
         <div class="cards">
 
-
             <div class="card">
-
-                <div class="icon">
-                    🌱
-                </div>
-
-                <h2>
-                    Fertilizer Dose
-                </h2>
-
-                <p>
-                    Recommended fertilizer for the current
-                    crop stage.
-                </p>
-
+                <div class="icon">🌱</div>
+                <h2>Fertilizer Dose</h2>
+                <p>Recommended fertilizer for the current crop stage.</p>
 
                 {% if recommendations %}
-
-
                     {% for item in recommendations %}
-
-
                         <div class="recommendation">
+                            <h3>🌿 {{ item["Fertilizer"] }}</h3>
+                            <p><strong>💊 Dose:</strong> {{ item["Dose"] }}</p>
 
-
-                            <h3>
-                                🌿 {{ item["Fertilizer"] }}
-                            </h3>
-
-
-                            <p>
-
-                                <strong>
-                                    💊 Dose:
-                                </strong>
-
-                                {{ item["Dose"] }}
-
-                            </p>
-
-
-                            <a href="{{ url_for(
-                                'fertilizer_dose',
-                                crop=crop,
-                                variety=variety,
-                                days=days,
-                                height=height,
-                                fertilizer=item['Fertilizer'],
-                                dose=item['Dose']
-                            ) }}"
-                            class="btn">
-
+                            <a href="{{ url_for('fertilizer_dose', crop=crop, variety=variety, days=days, height=height, fertilizer=item['Fertilizer'], dose=item['Dose']) }}" class="btn">
                                 Open Fertilizer Recommendation
-
                                 <i class="fa-solid fa-arrow-right"></i>
-
                             </a>
-
-
                         </div>
-
-
                     {% endfor %}
-
-
                 {% else %}
-
-                    <p>
-                        No fertilizer recommendation available.
-                    </p>
-
+                    <p>No fertilizer recommendation available.</p>
                 {% endif %}
-
-
             </div>
-
-
 
             <div class="card">
-
-
-                <div class="icon">
-                    🌿
-                </div>
-
-
-                <h2>
-                    Weed Control
-                </h2>
-
-
-                <p>
-                    Recommended weed-control information
-                    for the current crop stage.
-                </p>
-
+                <div class="icon">🌿</div>
+                <h2>Weed Control</h2>
+                <p>Recommended weed-control information for the current crop stage.</p>
 
                 {% if weedicide and weedicide != "None" %}
-
-
                     <div class="recommendation">
+                        <h3>🌱 {{ weedicide }}</h3>
+                        <p><strong>💊 Dose:</strong> {{ weed_dose }}</p>
 
-
-                        <h3>
-                            🌱 {{ weedicide }}
-                        </h3>
-
-
-                        <p>
-
-                            <strong>
-                                💊 Dose:
-                            </strong>
-
-                            {{ weed_dose }}
-
-                        </p>
-
-
-                        <a href="{{ url_for('weed_control',
-                            crop=crop,
-                            variety=variety,
-                            days=days,
-                            height=height,
-                            weedicide=weedicide,
-                            weed_dose=weed_dose) }}"
-                           class="btn green">
-
+                        <a href="{{ url_for('weed_control', crop=crop, variety=variety, days=days, height=height, weedicide=weedicide, weed_dose=weed_dose) }}" class="btn green">
                             Open Weed Control
                             <i class="fa-solid fa-arrow-right"></i>
-
                         </a>
-
-
                     </div>
-
-
                 {% else %}
-
-
                     <div class="recommendation">
-
-
-                        <h3>
-                            🌱 No Weedicide Required
-                        </h3>
-
-
-                        <p>
-                            Monitor the crop and maintain
-                            proper field sanitation.
-                        </p>
-
-
+                        <h3>🌱 No Weedicide Required</h3>
+                        <p>Monitor the crop and maintain proper field sanitation.</p>
                     </div>
-
-
                 {% endif %}
-
-
             </div>
-
 
         </div>
 
-
     {% endif %}
 
-
-
-    <a href="{{ url_for('home') }}"
-       class="back">
-
-        <i class="fa-solid fa-house"></i>
-
-        Back to Home
-
+    <a href="{{ url_for('home') }}" class="back">
+        <i class="fa-solid fa-house"></i> Back to Home
     </a>
-
 
 </div>
 
-
 </body>
-
 </html>
