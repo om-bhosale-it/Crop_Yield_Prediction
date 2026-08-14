@@ -3,8 +3,10 @@ from datetime import datetime
 from flask import Flask, render_template, request
 import joblib
 
-# ✅ इथे template_folder='.' टाकले आहे जेणेकरून Flask बाहेरच्या HTML फाईल्स ओळखेल
+# ✅ static_folder='.' आणि static_url_path='' मुळे CSS आणि Images बाहेरूनच लोड होतील
 app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='')
+
+
 # ==============================
 # LOAD ML MODEL
 # ==============================
