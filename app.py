@@ -189,17 +189,23 @@ def fertilizer_dose():
 # WEED CONTROL PAGE
 # ==============================
 
-@app.route("/weed_control")
+@app.route('/weed_control')
 def weed_control():
-    return render_template(
-        "weed_control.html",
-        crop=request.args.get("crop"),
-        variety=request.args.get("variety"),
-        days=request.args.get("days"),
-        height=request.args.get("height"),
-        weedicide=request.args.get("weedicide"),
-        weed_dose=request.args.get("weed_dose")
-    )
+    crop = request.args.get('crop')
+    variety = request.args.get('variety')
+    days = request.args.get('days')
+    height = request.args.get('height')
+    weedicide = request.args.get('weedicide')
+    weed_dose = request.args.get('weed_dose')
+
+    # ✅ इथे weed_control.html च Render झाले पाहिजे, result.html नाही!
+    return render_template('weed_control.html', 
+                           crop=crop, 
+                           variety=variety, 
+                           days=days, 
+                           height=height, 
+                           weedicide=weedicide, 
+                           weed_dose=weed_dose)
 
 # ==============================
 # RUN APPLICATION
