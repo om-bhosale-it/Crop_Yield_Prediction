@@ -3,50 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prediction Result</title>
+    <title>Weed Control Recommendation</title>
 
-    <link rel="stylesheet" href="result.css">
+    <link rel="stylesheet" href="fertilizer_menu.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<div class="result-card">
 
-    <h1>🌾 Crop Yield Prediction</h1>
+<div class="container" style="max-width: 600px; margin: 50px auto; padding: 20px;">
 
-    <hr style="border:0; height:1px; background:#e0e0e0; margin:20px 0;">
+    <div class="header" style="text-align: center; margin-bottom: 30px;">
+        <h1>🌿 Weed Control Details</h1>
+        <p>Crop: <strong>{{ crop }}</strong> | Variety: <strong>{{ variety }}</strong></p>
+        <p>Crop Age: <strong>{{ days }} days</strong> | Height: <strong>{{ height }} feet</strong></p>
+    </div>
 
-    {% if error %}
+    <div class="card" style="background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: left;">
+        
+        {% if weedicide and weedicide != "None" %}
+            <h2 style="color: #2e7d32; margin-bottom: 15px;">
+                🌱 Recommended Weedicide
+            </h2>
+            
+            <div style="font-size: 18px; line-height: 1.8;">
+                <p><strong>Chemical / Weedicide:</strong> {{ weedicide }}</p>
+                <p><strong>Recommended Dosage:</strong> {{ weed_dose }}</p>
+            </div>
+        {% else %}
+            <h2 style="color: #d32f2f; margin-bottom: 15px;">
+                ⚠️ No Weedicide Required
+            </h2>
+            <p style="font-size: 16px;">Monitor the field regularly and maintain proper sanitation.</p>
+        {% endif %}
 
-        <h2 style="color:red;">{{ error }}</h2>
+    </div>
 
-        <div class="buttons">
-            <a href="/" class="btn">
-                ⬅ Back
-            </a>
-        </div>
-
-    {% else %}
-
-        <h2>🌱 Selected Crop</h2>
-        <p>{{ crop }}</p>
-
-        <h2>📈 Predicted Yield</h2>
-        <p>{{ prediction }} Tons / Hectare</p>
-
-        <div class="buttons">
-
-            <a href="/" class="btn">
-                <i class="fa-solid fa-house"></i> Home
-            </a>
-
-            <a href="/fertilizer?crop={{ crop }}" class="btn green">
-                🌱 Fertilizer Recommendation
-            </a>
-
-        </div>
-
-    {% endif %}
+    <div style="text-align: center; margin-top: 30px;">
+        <a href="/" class="btn" style="text-decoration: none; padding: 12px 25px; background: #2e7d32; color: white; border-radius: 8px; display: inline-block;">
+            <i class="fa-solid fa-house"></i> Back to Home
+        </a>
+    </div>
 
 </div>
 
