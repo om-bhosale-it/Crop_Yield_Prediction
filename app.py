@@ -13,9 +13,8 @@ app = Flask(__name__)
 model = joblib.load("crop_model.pkl")
 encoder = joblib.load("label_encoder.pkl")
 
-fertilizer_data = pd.read_csv(
-    "dataset/fertilizer_data.csv"
-)
+# ✅ इथे बदल केला आहे (dataset/ काढून टाकले आहे)
+fertilizer_data = pd.read_csv("fertilizer_data.csv")
 
 
 # ==============================
@@ -252,6 +251,7 @@ def weed_control():
         weedicide=request.args.get("weedicide"),
         weed_dose=request.args.get("weed_dose")
     )
+
 # ==============================
 # RUN APPLICATION
 # ==============================
