@@ -3,7 +3,8 @@ from datetime import datetime
 from flask import Flask, render_template, request
 import joblib
 
-app = Flask(__name__)
+# ✅ इथे template_folder='.' टाकले आहे जेणेकरून Flask बाहेरच्या HTML फाईल्स ओळखेल
+app = Flask(__name__, template_folder='.')
 
 
 # ==============================
@@ -13,7 +14,6 @@ app = Flask(__name__)
 model = joblib.load("crop_model.pkl")
 encoder = joblib.load("label_encoder.pkl")
 
-# ✅ इथे बदल केला आहे (dataset/ काढून टाकले आहे)
 fertilizer_data = pd.read_csv("fertilizer_data.csv")
 
 
@@ -38,17 +38,14 @@ def predict():
     temperature = float(request.form["temperature"])
     humidity = float(request.form["humidity"])
 
-    # Check crop
     if crop not in encoder.classes_:
         return render_template(
             "index.html",
             error="❌ Invalid Crop Selected."
         )
 
-    # Encode crop
     crop_encoded = encoder.transform([crop])[0]
 
-    # Prediction
     prediction = model.predict(
         [[
             crop_encoded,
@@ -97,30 +94,18 @@ def fertilizer_result():
     plant_date = request.form["plant_date"]
     height = float(request.form["height"])
 
-    # Calculate crop age
     today = datetime.today()
     planting = datetime.strptime(plant_date, "%Y-%m-%d")
 
     days = (today - planting).days
 
-    # Prevent future plantation date
     if days < 0:
         return "Invalid plantation date."
 
-    # Check required CSV columns
     required_columns = [
-        "Crop",
-        "Variety",
-        "Soil_Type",
-        "Season",
-        "Irrigation",
-        "Region",
-        "Min_Days",
-        "Max_Days",
-        "Fertilizer",
-        "Dose",
-        "Weedicide",
-        "Weed_Dose"
+        "Crop", "Variety", "Soil_Type", "Season",
+        "Irrigation", "Region", "Min_Days", "Max_Days",
+        "Fertilizer", "Dose", "Weedicide", "Weed_Dose"
     ]
 
     missing_columns = [
@@ -134,19 +119,15 @@ def fertilizer_result():
             f"<p>Missing columns: {', '.join(missing_columns)}</p>"
         )
 
-    # Matching function
     def match_value(csv_value, user_value):
-
         csv_value = str(csv_value).strip()
         user_value = str(user_value).strip()
 
-        # "Any" means this field does not restrict the recommendation
         if csv_value.lower() == "any":
             return True
 
         return csv_value.lower() == user_value.lower()
 
-    # Find matching recommendations
     matches = fertilizer_data[
         (fertilizer_data["Crop"].astype(str).str.strip().str.lower()
          == crop.strip().lower())
@@ -156,7 +137,6 @@ def fertilizer_result():
         (fertilizer_data["Max_Days"] >= days)
     ]
 
-    # Apply remaining conditions
     matches = matches[
         matches["Variety"].apply(lambda x: match_value(x, variety))
         &
@@ -169,67 +149,37 @@ def fertilizer_result():
         matches["Region"].apply(lambda x: match_value(x, region))
     ]
 
-    # No recommendation
     if matches.empty:
-
         return render_template(
             "fertilizer_menu.html",
-            crop=crop,
-            variety=variety,
-            soil_type=soil_type,
-            season=season,
-            irrigation=irrigation,
-            region=region,
-            days=days,
-            height=height,
-            recommendations=[],
-            weedicide=None,
-            weed_dose=None,
-            no_recommendation=True
+            crop=crop, variety=variety, soil_type=soil_type,
+            season=season, irrigation=irrigation, region=region,
+            days=days, height=height, recommendations=[],
+            weedicide=None, weed_dose=None, no_recommendation=True
         )
 
-    # Convert matching rows to dictionary
     recommendations = matches.to_dict("records")
 
-    # Weed-control information
     first_result = matches.iloc[0]
-
     weedicide = first_result["Weedicide"]
     weed_dose = first_result["Weed_Dose"]
 
     return render_template(
         "fertilizer_menu.html",
-
-        crop=crop,
-        variety=variety,
-        soil_type=soil_type,
-        season=season,
-        irrigation=irrigation,
-        region=region,
-
-        days=days,
-        height=height,
-
-        recommendations=recommendations,
-
-        weedicide=weedicide,
-        weed_dose=weed_dose,
-
-        no_recommendation=False
+        crop=crop, variety=variety, soil_type=soil_type,
+        season=season, irrigation=irrigation, region=region,
+        days=days, height=height, recommendations=recommendations,
+        weedicide=weedicide, weed_dose=weed_dose, no_recommendation=False
     )
 
 @app.route("/fertilizer_dose")
 def fertilizer_dose():
-
     return render_template(
         "fertilizer_dose.html",
-
         crop=request.args.get("crop"),
         variety=request.args.get("variety"),
-
         days=request.args.get("days"),
         height=request.args.get("height"),
-
         fertilizer=request.args.get("fertilizer"),
         dose=request.args.get("dose")
     )
@@ -241,7 +191,6 @@ def fertilizer_dose():
 
 @app.route("/weed_control")
 def weed_control():
-
     return render_template(
         "weed_control.html",
         crop=request.args.get("crop"),
