@@ -14,6 +14,7 @@ fertilizer_data = pd.read_csv("fertilizer_data.csv")
 def home():
     return render_template("index.html")
 
+# 1. AI YIELD PREDICTION
 @app.route("/predict", methods=["POST"])
 def predict():
     crop = request.form["crop"]
@@ -27,12 +28,16 @@ def predict():
     crop_encoded = encoder.transform([crop])[0]
     prediction = model.predict([[crop_encoded, rainfall, temperature, humidity]])
 
+    # Yield चा निकाल दाखवणे आणि पुढे crop चे नाव पाठवणे
     return render_template("result.html", crop=crop, prediction=round(prediction[0], 2))
 
+# 2. FERTILIZER FORM PAGE
 @app.route('/fertilizer', methods=['GET', 'POST'])
 def fertilizer():
-    return render_template('fertilizer.html')
+    crop = request.args.get('crop', '')
+    return render_template('fertilizer.html', crop=crop)
 
+# 3. FERTILIZER & WEED RESULT
 @app.route("/fertilizer_result", methods=["POST"])
 def fertilizer_result():
     crop = request.form["crop"]
@@ -94,6 +99,7 @@ def fertilizer_result():
         weedicide=weedicide, weed_dose=weed_dose, no_recommendation=False
     )
 
+# 4. WEED CONTROL DETAILS PAGE
 @app.route('/weed_control')
 def weed_control():
     crop = request.args.get('crop', '')
