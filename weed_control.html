@@ -4,203 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weed Control Recommendation</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background-color: #e8f5e9;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px 15px;
-        }
-
-        /* Navbar */
-        .navbar {
-            width: 100%;
-            max-width: 900px;
-            background: #557153;
-            padding: 15px 30px;
-            border-radius: 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            margin-bottom: 30px;
-        }
-
-        .navbar .logo {
-            font-size: 22px;
-            font-weight: 700;
-            color: #81c784;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .navbar ul {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        /* Container & Cards */
-        .main-card {
-            background: #ffffff;
-            width: 100%;
-            max-width: 750px;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .icon-header {
-            font-size: 40px;
-            color: #2e7d32;
-            margin-bottom: 10px;
-        }
-
-        .main-card h1 {
-            color: #1b5e20;
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        .main-card h3 {
-            color: #333;
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .details-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .detail-box {
-            background: #f1f8e9;
-            padding: 15px;
-            border-radius: 12px;
-            border-left: 5px solid #2e7d32;
-            text-align: left;
-        }
-
-        .detail-box label {
-            font-size: 13px;
-            color: #2e7d32;
-            font-weight: 600;
-            display: block;
-        }
-
-        .detail-box span {
-            font-size: 16px;
-            color: #333;
-            font-weight: 600;
-        }
-
-        /* Recommendation Box */
-        .recommend-box {
-            background: #ffffff;
-            width: 100%;
-            max-width: 750px;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            border-top: 5px solid #2e7d32;
-        }
-
-        .rec-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 22px;
-            color: #1b5e20;
-            margin-bottom: 15px;
-        }
-
-        .rec-info {
-            background: #f9fbe7;
-            padding: 18px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            color: #558b2f;
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .btn-home {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 30px;
-            background: #2e7d32;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .btn-home:hover {
-            background: #1b5e20;
-        }
-
-        /* Language Switcher Styling */
-        .lang-container {
-            display: flex;
-            align-items: center;
-        }
-        #google_translate_element select {
-            background-color: #ffffff;
-            color: #2e7d32;
-            border: 1px solid #2e7d32;
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            outline: none;
-        }
-        .goog-te-banner-frame { display: none !important; }
-        body { top: 0px !important; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #e8f5e9; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 30px 15px; }
+        .navbar { width: 100%; max-width: 900px; background: #557153; padding: 15px 30px; border-radius: 50px; display: flex; justify-content: space-between; align-items: center; color: white; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); margin-bottom: 30px; }
+        .navbar .logo { font-size: 22px; font-weight: 700; color: #81c784; display: flex; align-items: center; gap: 8px; }
+        .navbar ul { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .navbar a { color: white; text-decoration: none; font-size: 14px; font-weight: 500; }
+        .main-card { background: #ffffff; width: 100%; max-width: 750px; border-radius: 20px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; margin-bottom: 25px; }
+        .icon-header { font-size: 40px; color: #2e7d32; margin-bottom: 10px; }
+        .main-card h1 { color: #1b5e20; font-size: 28px; margin-bottom: 5px; }
+        .main-card h3 { color: #333; font-size: 20px; font-weight: 600; margin-bottom: 20px; }
+        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .detail-box { background: #f1f8e9; padding: 15px; border-radius: 12px; border-left: 5px solid #2e7d32; text-align: left; }
+        .detail-box label { font-size: 13px; color: #2e7d32; font-weight: 600; display: block; }
+        .detail-box span { font-size: 16px; color: #333; font-weight: 600; }
+        .recommend-box { background: #ffffff; width: 100%; max-width: 750px; border-radius: 20px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-top: 5px solid #2e7d32; }
+        .rec-title { display: flex; align-items: center; gap: 10px; font-size: 22px; color: #1b5e20; margin-bottom: 15px; }
+        .rec-info { background: #f9fbe7; padding: 18px; border-radius: 12px; margin-bottom: 15px; color: #558b2f; font-weight: 600; font-size: 16px; }
+        .btn-home { display: inline-block; margin-top: 20px; padding: 12px 30px; background: #2e7d32; color: white; text-decoration: none; border-radius: 10px; font-weight: 600; transition: 0.3s; }
+        .btn-home:hover { background: #1b5e20; }
     </style>
 </head>
 <body>
 
     <div class="navbar">
-        <div class="logo">
-            🌱 AgriPredict
-        </div>
+        <div class="logo">🌱 AgriPredict</div>
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/#prediction">Prediction</a></li>
             <li><a href="/#features">Services</a></li>
-            <li class="lang-container">
-                <div id="google_translate_element"></div>
-            </li>
         </ul>
     </div>
 
@@ -220,7 +55,7 @@
             </div>
             <div class="detail-box">
                 <label>Crop Height</label>
-                <span>{{ height }} <span class="notranslate">feet</span></span>
+                <span>{{ height }} feet</span>
             </div>
         </div>
     </div>
@@ -247,18 +82,6 @@
     <a href="/" class="btn-home">
         <i class="fa-solid fa-house"></i> Back to Home
     </a>
-
-<!-- Google Translate Script -->
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            includedLanguages: 'mr,hi,en',
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-    }
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
