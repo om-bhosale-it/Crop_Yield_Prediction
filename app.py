@@ -160,6 +160,12 @@ def weed_control():
         weedicide=weedicide,
         weed_dose=weed_dose
     )
+    # ==============================
+# REGISTER PAGE ROUTE
+# ==============================
+@app.route("/register")
+def register():
+    return render_template("register.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
