@@ -318,3 +318,14 @@ select option {
     visibility: visible !important;
     margin-top: 6px;
 }
+/* प्रेडिक्शन सेक्शन किंवा कंटेनरसाठी CSS */
+.prediction-container, #predict-section {
+    width: 100%;
+    max-width: 600px;       /* फॉर्मची जास्तीत जास्त रुंदी */
+    margin: 40px auto;      /* 'auto' मुळे फॉर्म दोन्ही बाजूने बरोबर सेंटरला (मध्यभागी) येतो */
+    display: block;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
