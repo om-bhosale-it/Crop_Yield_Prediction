@@ -1,58 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Fertilizer Recommendation</title>
-
     <link rel="stylesheet" href="fertilizer_menu.css">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Language Switcher Styling -->
-    <style>
-        .lang-bar {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 15px;
-        }
-        #google_translate_element select {
-            background-color: #ffffff;
-            color: #2e7d32;
-            border: 1px solid #2e7d32;
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            outline: none;
-        }
-        .goog-te-banner-frame { display: none !important; }
-        body { top: 0px !important; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-
 <body>
 
 <div class="container">
-
-    <!-- LANGUAGE SELECTOR -->
-    <div class="lang-bar">
-        <div id="google_translate_element"></div>
-    </div>
 
     <div class="header">
         <h1>🌾 Fertilizer Recommendation</h1>
         <p>Crop: <strong>{{ crop }}</strong></p>
         <p>Variety: <strong>{{ variety }}</strong></p>
         <p>Crop Age: <strong>{{ days }} days</strong></p>
-        <p>Crop Height: <strong>{{ height }} <span class="notranslate">feet</span></strong></p>
+        <p>Crop Height: <strong>{{ height }} feet</strong></p>
     </div>
 
     {% if no_recommendation %}
@@ -60,9 +25,7 @@
         <div class="no-result">
             <h2>⚠️ No Recommendation Found</h2>
             <p>No matching recommendation was found for the selected crop conditions.</p>
-            <a href="{{ url_for('home') }}" class="btn">
-                ← Try Again
-            </a>
+            <a href="{{ url_for('home') }}" class="btn">← Try Again</a>
         </div>
 
     {% else %}
@@ -79,10 +42,8 @@
                         <div class="recommendation">
                             <h3>🌿 {{ item["Fertilizer"] }}</h3>
                             <p><strong>💊 Dose:</strong> {{ item["Dose"] }}</p>
-
                             <a href="{{ url_for('fertilizer_dose', crop=crop, variety=variety, days=days, height=height, fertilizer=item['Fertilizer'], dose=item['Dose']) }}" class="btn">
-                                Open Fertilizer Recommendation
-                                <i class="fa-solid fa-arrow-right"></i>
+                                Open Fertilizer Recommendation <i class="fa-solid fa-arrow-right"></i>
                             </a>
                         </div>
                     {% endfor %}
@@ -100,20 +61,16 @@
                     <div class="recommendation">
                         <h3>🌱 {{ weedicide }}</h3>
                         <p><strong>💊 Dose:</strong> {{ weed_dose }}</p>
-
                         <a href="{{ url_for('weed_control', crop=crop, variety=variety, days=days, height=height, weedicide=weedicide, weed_dose=weed_dose) }}" class="btn green">
-                            Open Weed Control
-                            <i class="fa-solid fa-arrow-right"></i>
+                            Open Weed Control <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
                 {% else %}
                     <div class="recommendation">
                         <h3>🌱 No Weedicide Required</h3>
                         <p>Monitor the crop and maintain proper field sanitation.</p>
-
                         <a href="{{ url_for('weed_control', crop=crop, variety=variety, days=days, height=height, weedicide='None', weed_dose='N/A') }}" class="btn green" style="margin-top: 10px;">
-                            Open Weed Control Details
-                            <i class="fa-solid fa-arrow-right"></i>
+                            Open Weed Control Details <i class="fa-solid fa-arrow-right"></i>
                         </a>
                     </div>
                 {% endif %}
@@ -128,18 +85,6 @@
     </a>
 
 </div>
-
-<!-- Google Translate Script -->
-<script type="text/javascript">
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',
-            includedLanguages: 'mr,hi,en',
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-    }
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
