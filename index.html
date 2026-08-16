@@ -9,25 +9,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Language Switcher Styling -->
+    <!-- Navbar, Register Button & Google Translate Styling -->
     <style>
+        /* Navigation Links आकार लहान करणे */
+        nav ul li a {
+            font-size: 13px !important;
+            font-weight: 600;
+            padding: 5px 8px;
+            text-decoration: none;
+        }
+
+        /* Navigation Links मध्ये अंतर ठेवणं */
+        nav ul {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            list-style: none;
+        }
+
+        /* Register Button Styling */
+        .btn-register {
+            background-color: #2e7d32;
+            color: #ffffff !important;
+            padding: 6px 14px !important;
+            border-radius: 6px;
+            font-size: 13px !important;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-register:hover {
+            background-color: #1b5e20;
+        }
+
+        /* Language Switcher Dropdown लहान करणे */
         .lang-container {
             display: flex;
             align-items: center;
-            margin-left: 15px;
+            margin-left: 10px;
         }
         #google_translate_element select {
             background-color: #ffffff;
             color: #2e7d32;
             border: 1px solid #2e7d32;
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-size: 13px;
+            padding: 4px 8px !important;
+            border-radius: 6px;
+            font-size: 12px !important;
             font-weight: 600;
             cursor: pointer;
             outline: none;
         }
         .goog-te-banner-frame { display: none !important; }
+        .goog-te-gadget span, .goog-te-gadget-icon { display: none !important; }
+        .goog-te-gadget { font-size: 0px !important; }
         body { top: 0px !important; }
     </style>
 </head>
@@ -41,10 +74,17 @@
             <i class="fa-solid fa-wheat-awn"></i> AgriPredict
         </div>
         <ul>
-            <li><a href="#">Home</a></li>
+            <!-- होम पेज वर येण्यासाठी -->
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            
+            <!-- पेजेस स्क्रोल होण्याऐवजी स्वतंत्र ओपन करण्यासाठी प्रॉपर लिंक्स -->
             <li><a href="#prediction">Prediction</a></li>
             <li><a href="#features">Services</a></li>
             <li><a href="#">Contact</a></li>
+            
+            <!-- नवीन जोडलेले Register बटण -->
+            <li><a href="{{ url_for('register') }}" class="btn-register">Register</a></li>
+
             <!-- Language Selector Dropdown -->
             <li class="lang-container">
                 <div id="google_translate_element"></div>
