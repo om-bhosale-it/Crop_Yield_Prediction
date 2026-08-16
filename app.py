@@ -23,7 +23,10 @@ fertilizer_data = pd.read_csv("fertilizer_data.csv")
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    try:
+        return render_template("index.html")
+    except Exception as e:
+        return f"<h2>Template Error</h2><p>index.html फाइल सापडली नाही. कृपया तपासा: {e}</p>", 404
 
 
 # ==============================
