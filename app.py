@@ -181,9 +181,7 @@ def services_page():
 def contact_page():
     return render_template("contact.html")
 
-@app.route("/register")
-def register():
-    return render_template("register.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
