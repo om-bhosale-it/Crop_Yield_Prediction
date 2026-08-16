@@ -163,8 +163,8 @@ def weed_control():
     # ==============================
 # REGISTER PAGE ROUTE
 # ==============================
-@app.route("/register")
-def register():
+@app.route("/register", methods=["GET", "POST"])
+def register_page():
     return render_template("register.html")
     # ==============================
 # NAVBAR PAGES ROUTES
