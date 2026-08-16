@@ -3,53 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prediction Result</title>
+    <title>Weed Control Recommendation</title>
 
-    <link rel="stylesheet" href="result.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #e8f5e9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            max-width: 900px;
+            background: #557153;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+        }
+
+        .navbar .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #81c784;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Container & Cards */
+        .main-card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 750px;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .icon-header {
+            font-size: 40px;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .main-card h1 {
+            color: #1b5e20;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .main-card h3 {
+            color: #333;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .detail-box {
+            background: #f1f8e9;
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 5px solid #2e7d32;
+            text-align: left;
+        }
+
+        .detail-box label {
+            font-size: 13px;
+            color: #2e7d32;
+            font-weight: 600;
+            display: block;
+        }
+
+        .detail-box span {
+            font-size: 16px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Recommendation Box */
+        .recommend-box {
+            background: #ffffff;
+            width: 100%;
+            max-width: 750px;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border-top: 5px solid #2e7d32;
+        }
+
+        .rec-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            color: #1b5e20;
+            margin-bottom: 15px;
+        }
+
+        .rec-info {
+            background: #f9fbe7;
+            padding: 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            color: #558b2f;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .btn-home {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: #2e7d32;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-home:hover {
+            background: #1b5e20;
+        }
+
+        /* Language Switcher Styling */
+        .lang-container {
+            display: flex;
+            align-items: center;
+        }
+        #google_translate_element select {
+            background-color: #ffffff;
+            color: #2e7d32;
+            border: 1px solid #2e7d32;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        .goog-te-banner-frame { display: none !important; }
+        body { top: 0px !important; }
+    </style>
 </head>
 <body>
-<div class="result-card">
 
-    <h1>🌾 Crop Yield Prediction</h1>
-
-    <hr style="border:0; height:1px; background:#e0e0e0; margin:20px 0;">
-
-    {% if error %}
-
-        <h2 style="color:red;">{{ error }}</h2>
-
-        <div class="buttons">
-            <a href="/" class="btn">
-                ⬅ Back
-            </a>
+    <div class="navbar">
+        <div class="logo">
+            🌱 AgriPredict
         </div>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/#prediction">Prediction</a></li>
+            <li><a href="/#features">Services</a></li>
+            <!-- Language Selector Dropdown -->
+            <li class="lang-container">
+                <div id="google_translate_element"></div>
+            </li>
+        </ul>
+    </div>
 
-    {% else %}
+    <div class="main-card">
+        <div class="icon-header">🌿</div>
+        <h1>Weed Control Details</h1>
+        <h3>{{ crop }}</h3>
 
-        <h2>🌱 Selected Crop</h2>
-        <p>{{ crop }}</p>
-
-        <h2>📈 Predicted Yield</h2>
-        <p>{{ prediction }} Tons / Hectare</p>
-
-        <div class="buttons">
-
-            <a href="/" class="btn">
-                <i class="fa-solid fa-house"></i> Home
-            </a>
-
-            <a href="/fertilizer?crop={{ crop }}" class="btn green">
-                🌱 Fertilizer Recommendation
-            </a>
-
+        <div class="details-grid">
+            <div class="detail-box">
+                <label>Crop Variety</label>
+                <span>{{ variety }}</span>
+            </div>
+            <div class="detail-box">
+                <label>Crop Age</label>
+                <span>{{ days }} days</span>
+            </div>
+            <div class="detail-box">
+                <label>Crop Height</label>
+                <span>{{ height }} feet</span>
+            </div>
         </div>
+    </div>
 
-    {% endif %}
+    <div class="recommend-box">
+        {% if weedicide and weedicide != "None" %}
+            <div class="rec-title">
+                🌱 <span>Recommended Weedicide</span>
+            </div>
+            <div class="rec-info">
+                <strong>Chemical / Weedicide:</strong> {{ weedicide }}
+            </div>
+            <div class="rec-info" style="background: #f1f8e9; color: #33691e;">
+                <strong>Recommended Dosage:</strong> {{ weed_dose }}
+            </div>
+        {% else %}
+            <div class="rec-title" style="color: #c62828;">
+                ⚠️ <span>No Weedicide Required</span>
+            </div>
+            <p style="color: #666; font-size: 15px;">Monitor the crop regularly and maintain proper sanitation in the field.</p>
+        {% endif %}
+    </div>
 
-</div>
+    <a href="/" class="btn-home">
+        <i class="fa-solid fa-house"></i> Back to Home
+    </a>
 
-<script src="script.js"></script>
+<!-- Google Translate Script -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'mr,hi,en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>
