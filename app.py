@@ -163,8 +163,16 @@ def weed_control():
     # ==============================
 # REGISTER PAGE ROUTE
 # ==============================
+from flask import render_template, request, redirect, url_for
+
 @app.route("/register", methods=["GET", "POST"])
 def register_page():
+    if request.method == "POST":
+        # इथे युझरचा डेटा सेव्ह करण्याचे कोडिंग असेल (उदा. डेटाबेसमध्ये)
+        
+        # यशस्वीरित्या रजिस्टर झाल्यावर होम पेजवर पाठवण्यासाठी:
+        return redirect(url_for('home'))
+        
     return render_template("register.html")
     # ==============================
 # NAVBAR PAGES ROUTES
