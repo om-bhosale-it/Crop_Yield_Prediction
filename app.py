@@ -38,66 +38,88 @@ def fertilizer():
     return render_template('fertilizer.html', crop=crop)
 
 # 3. FERTILIZER & WEED RESULT
+# ==============================
+# FERTILIZER RESULT (ERROR-FREE)
+# ==============================
 @app.route("/fertilizer_result", methods=["POST"])
 def fertilizer_result():
-    crop = request.form["crop"]
-    variety = request.form["variety"]
-    soil_type = request.form["soil_type"]
-    season = request.form["season"]
-    irrigation = request.form["irrigation"]
-    region = request.form["region"]
-    plant_date = request.form["plant_date"]
-    height = float(request.form["height"])
+    try:
+        crop = request.form.get("crop", "").strip()
+        variety = request.form.get("variety", "").strip()
+        soil_type = request.form.get("soil_type", "").strip()
+        season = request.form.get("season", "").strip()
+        irrigation = request.form.get("irrigation", "").strip()
+        region = request.form.get("region", "").strip()
+        plant_date = request.form.get("plant_date", "").strip()
+        
+        # Height चेक करणे
+        try:
+            height = float(request.form.get("height", 0))
+        except (ValueError, TypeError):
+            height = 0.0
 
-    today = datetime.today()
-    planting = datetime.strptime(plant_date, "%Y-%m-%d")
-    days = (today - planting).days
+        # तारीख चेक करणे
+        days = 0
+        if plant_date:
+            try:
+                today = datetime.today()
+                planting = datetime.strptime(plant_date, "%Y-%m-%d")
+                days = (today - planting).days
+            except ValueError:
+                days = 0
 
-    if days < 0:
-        return "Invalid plantation date."
+        if days < 0:
+            days = 0
 
-    def match_value(csv_value, user_value):
-        csv_val = str(csv_value).strip()
-        user_val = str(user_value).strip()
-        if csv_val.lower() == "any":
-            return True
-        return csv_val.lower() == user_val.lower()
+        # CSV Columns तपासणे
+        def match_value(csv_value, user_value):
+            csv_val = str(csv_value).strip().lower()
+            user_val = str(user_value).strip().lower()
+            if csv_val == "any" or not user_val:
+                return True
+            return csv_val == user_val
 
-    matches = fertilizer_data[
-        (fertilizer_data["Crop"].astype(str).str.strip().str.lower() == crop.strip().lower()) &
-        (fertilizer_data["Min_Days"] <= days) &
-        (fertilizer_data["Max_Days"] >= days)
-    ]
+        # CSV मधून फिल्टर करणे
+        matches = fertilizer_data[
+            (fertilizer_data["Crop"].astype(str).str.strip().str.lower() == crop.lower()) &
+            (fertilizer_data["Min_Days"] <= days) &
+            (fertilizer_data["Max_Days"] >= days)
+        ]
 
-    matches = matches[
-        matches["Variety"].apply(lambda x: match_value(x, variety)) &
-        matches["Soil_Type"].apply(lambda x: match_value(x, soil_type)) &
-        matches["Season"].apply(lambda x: match_value(x, season)) &
-        matches["Irrigation"].apply(lambda x: match_value(x, irrigation)) &
-        matches["Region"].apply(lambda x: match_value(x, region))
-    ]
+        if not matches.empty:
+            matches = matches[
+                matches["Variety"].apply(lambda x: match_value(x, variety)) &
+                matches["Soil_Type"].apply(lambda x: match_value(x, soil_type)) &
+                matches["Season"].apply(lambda x: match_value(x, season)) &
+                matches["Irrigation"].apply(lambda x: match_value(x, irrigation)) &
+                matches["Region"].apply(lambda x: match_value(x, region))
+            ]
 
-    if matches.empty:
+        if matches.empty:
+            return render_template(
+                "fertilizer_menu.html",
+                crop=crop, variety=variety, soil_type=soil_type,
+                season=season, irrigation=irrigation, region=region,
+                days=days, height=height, recommendations=[],
+                weedicide=None, weed_dose=None, no_recommendation=True
+            )
+
+        recommendations = matches.to_dict("records")
+        first_result = matches.iloc[0]
+        weedicide = str(first_result.get("Weedicide", "None"))
+        weed_dose = str(first_result.get("Weed_Dose", "N/A"))
+
         return render_template(
             "fertilizer_menu.html",
             crop=crop, variety=variety, soil_type=soil_type,
             season=season, irrigation=irrigation, region=region,
-            days=days, height=height, recommendations=[],
-            weedicide=None, weed_dose=None, no_recommendation=True
+            days=days, height=height, recommendations=recommendations,
+            weedicide=weedicide, weed_dose=weed_dose, no_recommendation=False
         )
 
-    recommendations = matches.to_dict("records")
-    first_result = matches.iloc[0]
-    weedicide = str(first_result["Weedicide"])
-    weed_dose = str(first_result["Weed_Dose"])
-
-    return render_template(
-        "fertilizer_menu.html",
-        crop=crop, variety=variety, soil_type=soil_type,
-        season=season, irrigation=irrigation, region=region,
-        days=days, height=height, recommendations=recommendations,
-        weedicide=weedicide, weed_dose=weed_dose, no_recommendation=False
-    )
+    except Exception as e:
+        # जर काही क्रॅश झालेच तर ५०० एरर न दाखवता काय चूक आहे ते स्क्रीनवर दाखवेल
+        return f"<h2>Application Error</h2><p>Detail: {str(e)}</p><a href='/fertilizer'>Go Back</a>"
 
 # 4. WEED CONTROL DETAILS PAGE
 @app.route('/weed_control')
