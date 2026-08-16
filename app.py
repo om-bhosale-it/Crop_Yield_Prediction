@@ -120,7 +120,27 @@ def fertilizer_result():
     except Exception as e:
         # जर काही क्रॅश झालेच तर ५०० एरर न दाखवता काय चूक आहे ते स्क्रीनवर दाखवेल
         return f"<h2>Application Error</h2><p>Detail: {str(e)}</p><a href='/fertilizer'>Go Back</a>"
+# ==============================
+# FERTILIZER DOSE PAGE
+# ==============================
+@app.route("/fertilizer_dose")
+def fertilizer_dose():
+    crop = request.args.get("crop", "N/A")
+    variety = request.args.get("variety", "N/A")
+    days = request.args.get("days", "0")
+    height = request.args.get("height", "0")
+    fertilizer = request.args.get("fertilizer", "N/A")
+    dose = request.args.get("dose", "N/A")
 
+    return render_template(
+        "fertilizer_dose.html",
+        crop=crop,
+        variety=variety,
+        days=days,
+        height=height,
+        fertilizer=fertilizer,
+        dose=dose
+    )
 # 4. WEED CONTROL DETAILS PAGE
 @app.route('/weed_control')
 def weed_control():
