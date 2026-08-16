@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -198,7 +198,6 @@
             <li><a href="/">Home</a></li>
             <li><a href="/#prediction">Prediction</a></li>
             <li><a href="/#features">Services</a></li>
-            <!-- Language Selector Dropdown -->
             <li class="lang-container">
                 <div id="google_translate_element"></div>
             </li>
@@ -208,26 +207,26 @@
     <div class="main-card">
         <div class="icon-header">🌿</div>
         <h1>Weed Control Details</h1>
-        <h3>{{ crop if crop else 'N/A' }}</h3>
+        <h3>{{ crop }}</h3>
 
         <div class="details-grid">
             <div class="detail-box">
                 <label>Crop Variety</label>
-                <span>{{ variety if variety else 'N/A' }}</span>
+                <span>{{ variety }}</span>
             </div>
             <div class="detail-box">
                 <label>Crop Age</label>
-                <span>{{ days if days else '0' }} days</span>
+                <span>{{ days }} days</span>
             </div>
             <div class="detail-box">
                 <label>Crop Height</label>
-                <span>{{ height if height else '0' }} <span class="notranslate">feet</span></span>
+                <span>{{ height }} <span class="notranslate">feet</span></span>
             </div>
         </div>
     </div>
 
     <div class="recommend-box">
-        {% if weedicide and weedicide != "None" and weedicide != "NaN" %}
+        {% if weedicide and weedicide != "None" and weedicide != "nan" %}
             <div class="rec-title">
                 🌱 <span>Recommended Weedicide</span>
             </div>
