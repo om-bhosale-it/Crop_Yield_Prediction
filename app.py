@@ -65,15 +65,20 @@ def predict():
 # ==============================
 # FERTILIZER PAGE
 # ==============================
-
-@app.route("/fertilizer")
+@app.route('/fertilizer', methods=['GET', 'POST'])
 def fertilizer():
-
-    crop = request.args.get("crop")
-
+    # ... तुमचा जुना मॅचिंगचा कोड ...
+    
+    # render_template करताना सर्व variables पाठवणे गरजेचे आहे:
     return render_template(
-        "fertilizer.html",
-        crop=crop
+        'fertilizer_menu.html',
+        crop=crop,
+        variety=variety,
+        days=days,
+        height=height,
+        recommendations=recommendations,
+        weedicide=weedicide,
+        weed_dose=weed_dose
     )
 
 
