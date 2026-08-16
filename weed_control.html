@@ -208,26 +208,26 @@
     <div class="main-card">
         <div class="icon-header">🌿</div>
         <h1>Weed Control Details</h1>
-        <h3>{{ crop }}</h3>
+        <h3>{{ crop if crop else 'N/A' }}</h3>
 
         <div class="details-grid">
             <div class="detail-box">
                 <label>Crop Variety</label>
-                <span>{{ variety }}</span>
+                <span>{{ variety if variety else 'N/A' }}</span>
             </div>
             <div class="detail-box">
                 <label>Crop Age</label>
-                <span>{{ days }} days</span>
+                <span>{{ days if days else '0' }} days</span>
             </div>
             <div class="detail-box">
                 <label>Crop Height</label>
-                <span>{{ height }} feet</span>
+                <span>{{ height if height else '0' }} <span class="notranslate">feet</span></span>
             </div>
         </div>
     </div>
 
     <div class="recommend-box">
-        {% if weedicide and weedicide != "None" %}
+        {% if weedicide and weedicide != "None" and weedicide != "NaN" %}
             <div class="rec-title">
                 🌱 <span>Recommended Weedicide</span>
             </div>
