@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - AgriPredict</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        body {
+            background-color: #f4fbf7;
+            color: #333;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .header h1 {
+            color: #1b5e20;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #555;
+            font-size: 16px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .service-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e0e0e0;
+            transition: 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        .icon {
+            font-size: 40px;
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        .service-card h3 {
+            color: #1b5e20;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        .service-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 10px 20px;
+            background-color: #2e7d32;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+        .back-btn:hover {
+            background-color: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <h1>Our Agricultural Services</h1>
+            <p>Smart AI solutions designed to boost farm productivity and crop quality.</p>
+        </div>
+
+        <div class="services-grid">
+            <!-- Service 1 -->
+            <div class="service-card">
+                <div class="icon"><i class="fa-solid fa-chart-line"></i></div>
+                <h3>AI Crop Yield Prediction</h3>
+                <p> get accurate estimates of expected crop yield per acre based on temperature, rainfall, and humidity parameters.</p>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="service-card">
+                <div class="icon"><i class="fa-solid fa-flask"></i></div>
+                <h3>Smart Fertilizer Guide</h3>
+                <p>Receive customized fertilizer dosage recommendations tailored to your crop's growth stage and soil type.</p>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="service-card">
+                <div class="icon"><i class="fa-solid fa-seedling"></i></div>
+                <h3>Weed Control Management</h3>
+                <p>Get reliable recommendations for weedicides to protect your crops from weeds and maximize health.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="{{ url_for('home') }}" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+        </div>
+    </div>
+
+</body>
+</html>
