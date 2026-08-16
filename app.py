@@ -70,7 +70,11 @@ def predict():
 # ==============================
 @app.route('/fertilizer', methods=['GET', 'POST'])
 def fertilizer():
-    return render_template('fertilizer.html')
+    # जर फॉर्म सबमिट झाला नसेल तर मुख्य इनपुट पेज उघडा
+    try:
+        return render_template('fertilizer.html')
+    except:
+        return render_template('index.html')
 
 # ==============================
 # FERTILIZER RESULT
