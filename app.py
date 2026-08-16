@@ -3,39 +3,29 @@ from datetime import datetime
 from flask import Flask, render_template, request
 import joblib
 
-# ✅ static_folder='.' आणि static_url_path='' मुळे CSS आणि Images बाहेरूनच लोड होतील
 app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='')
 
-
 # ==============================
-# LOAD ML MODEL
+# LOAD ML MODEL & DATA
 # ==============================
-
 model = joblib.load("crop_model.pkl")
 encoder = joblib.load("label_encoder.pkl")
-
 fertilizer_data = pd.read_csv("fertilizer_data.csv")
 
 
 # ==============================
 # HOME
 # ==============================
-
 @app.route("/")
 def home():
-    try:
-        return render_template("index.html")
-    except Exception as e:
-        return f"<h2>Template Error</h2><p>index.html फाइल सापडली नाही. कृपया तपासा: {e}</p>", 404
+    return render_template("index.html")
 
 
 # ==============================
 # CROP YIELD PREDICTION
 # ==============================
-
 @app.route("/predict", methods=["POST"])
 def predict():
-
     crop = request.form["crop"]
     rainfall = float(request.form["rainfall"])
     temperature = float(request.form["temperature"])
@@ -48,15 +38,7 @@ def predict():
         )
 
     crop_encoded = encoder.transform([crop])[0]
-
-    prediction = model.predict(
-        [[
-            crop_encoded,
-            rainfall,
-            temperature,
-            humidity
-        ]]
-    )
+    prediction = model.predict([[crop_encoded, rainfall, temperature, humidity]])
 
     return render_template(
         "result.html",
@@ -66,36 +48,29 @@ def predict():
 
 
 # ==============================
-# FERTILIZER PAGE
+# FERTILIZER FORM PAGE
 # ==============================
 @app.route('/fertilizer', methods=['GET', 'POST'])
 def fertilizer():
-    # जर फॉर्म सबमिट झाला नसेल तर मुख्य इनपुट पेज उघडा
-    try:
-        return render_template('fertilizer.html')
-    except:
-        return render_template('index.html')
+    return render_template('fertilizer.html')
+
 
 # ==============================
 # FERTILIZER RESULT
 # ==============================
-
 @app.route("/fertilizer_result", methods=["POST"])
 def fertilizer_result():
-
     crop = request.form["crop"]
     variety = request.form["variety"]
     soil_type = request.form["soil_type"]
     season = request.form["season"]
     irrigation = request.form["irrigation"]
     region = request.form["region"]
-
     plant_date = request.form["plant_date"]
     height = float(request.form["height"])
 
     today = datetime.today()
     planting = datetime.strptime(plant_date, "%Y-%m-%d")
-
     days = (today - planting).days
 
     if days < 0:
@@ -107,44 +82,28 @@ def fertilizer_result():
         "Fertilizer", "Dose", "Weedicide", "Weed_Dose"
     ]
 
-    missing_columns = [
-        column for column in required_columns
-        if column not in fertilizer_data.columns
-    ]
-
+    missing_columns = [col for col in required_columns if col not in fertilizer_data.columns]
     if missing_columns:
-        return (
-            "<h2>CSV Column Error</h2>"
-            f"<p>Missing columns: {', '.join(missing_columns)}</p>"
-        )
+        return f"<h2>CSV Column Error</h2><p>Missing columns: {', '.join(missing_columns)}</p>"
 
     def match_value(csv_value, user_value):
-        csv_value = str(csv_value).strip()
-        user_value = str(user_value).strip()
-
-        if csv_value.lower() == "any":
+        csv_val = str(csv_value).strip()
+        user_val = str(user_value).strip()
+        if csv_val.lower() == "any":
             return True
-
-        return csv_value.lower() == user_value.lower()
+        return csv_val.lower() == user_val.lower()
 
     matches = fertilizer_data[
-        (fertilizer_data["Crop"].astype(str).str.strip().str.lower()
-         == crop.strip().lower())
-        &
-        (fertilizer_data["Min_Days"] <= days)
-        &
+        (fertilizer_data["Crop"].astype(str).str.strip().str.lower() == crop.strip().lower()) &
+        (fertilizer_data["Min_Days"] <= days) &
         (fertilizer_data["Max_Days"] >= days)
     ]
 
     matches = matches[
-        matches["Variety"].apply(lambda x: match_value(x, variety))
-        &
-        matches["Soil_Type"].apply(lambda x: match_value(x, soil_type))
-        &
-        matches["Season"].apply(lambda x: match_value(x, season))
-        &
-        matches["Irrigation"].apply(lambda x: match_value(x, irrigation))
-        &
+        matches["Variety"].apply(lambda x: match_value(x, variety)) &
+        matches["Soil_Type"].apply(lambda x: match_value(x, soil_type)) &
+        matches["Season"].apply(lambda x: match_value(x, season)) &
+        matches["Irrigation"].apply(lambda x: match_value(x, irrigation)) &
         matches["Region"].apply(lambda x: match_value(x, region))
     ]
 
@@ -158,7 +117,6 @@ def fertilizer_result():
         )
 
     recommendations = matches.to_dict("records")
-
     first_result = matches.iloc[0]
     weedicide = str(first_result["Weedicide"])
     weed_dose = str(first_result["Weed_Dose"])
@@ -171,6 +129,10 @@ def fertilizer_result():
         weedicide=weedicide, weed_dose=weed_dose, no_recommendation=False
     )
 
+
+# ==============================
+# FERTILIZER DOSE PAGE
+# ==============================
 @app.route("/fertilizer_dose")
 def fertilizer_dose():
     return render_template(
@@ -187,29 +149,21 @@ def fertilizer_dose():
 # ==============================
 # WEED CONTROL PAGE
 # ==============================
-
 @app.route('/weed_control')
 def weed_control():
-    crop = request.args.get('crop', 'N/A')
-    variety = request.args.get('variety', 'N/A')
-    days = request.args.get('days', '0')
-    height = request.args.get('height', '0')
-    weedicide = request.args.get('weedicide', 'None')
-    weed_dose = request.args.get('weed_dose', 'N/A')
-
     return render_template(
         'weed_control.html',
-        crop=crop,
-        variety=variety,
-        days=days,
-        height=height,
-        weedicide=weedicide,
-        weed_dose=weed_dose
+        crop=request.args.get('crop', 'N/A'),
+        variety=request.args.get('variety', 'N/A'),
+        days=request.args.get('days', '0'),
+        height=request.args.get('height', '0'),
+        weedicide=request.args.get('weedicide', 'None'),
+        weed_dose=request.args.get('weed_dose', 'N/A')
     )
+
 
 # ==============================
 # RUN APPLICATION
 # ==============================
-
 if __name__ == "__main__":
     app.run(debug=True)
