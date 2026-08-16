@@ -196,10 +196,10 @@ def fertilizer_dose():
 
 @app.route('/weed_control')
 def weed_control():
-    crop = request.args.get('crop', 'N/A')
-    variety = request.args.get('variety', 'N/A')
-    days = request.args.get('days', '0')
-    height = request.args.get('height', '0')
+    crop = request.args.get('crop', '')
+    variety = request.args.get('variety', '')
+    days = request.args.get('days', '')
+    height = request.args.get('height', '')
     weedicide = request.args.get('weedicide', 'None')
     weed_dose = request.args.get('weed_dose', 'N/A')
 
@@ -212,7 +212,6 @@ def weed_control():
         weedicide=weedicide,
         weed_dose=weed_dose
     )
-
 # ==============================
 # RUN APPLICATION
 # ==============================
