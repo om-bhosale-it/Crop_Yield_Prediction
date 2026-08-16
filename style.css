@@ -26,6 +26,25 @@ body {
     background: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
     z-index: -2;
     transform: scale(1.05);
+    /* Google Translate Widget ची साईझ लहान करण्यासाठी */
+#google_translate_element select {
+    font-size: 11px !important;
+    padding: 3px 6px !important;
+    height: 28px !important;
+    border-radius: 6px !important;
+    border: 1px solid #2e7d32 !important;
+}
+
+/* Google चा लोगो आणि अतिरिक्त मजकूर लपवण्यासाठी */
+.goog-te-gadget span, 
+.goog-te-gadget-icon,
+.goog-te-banner-frame {
+    display: none !important;
+}
+
+.goog-te-gadget {
+    font-size: 0px !important;
+}
     transition: transform 0.2s ease-out;
     filter: brightness(0.4) contract(1.1);
 }
