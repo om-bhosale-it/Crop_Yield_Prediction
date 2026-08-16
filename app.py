@@ -5,25 +5,15 @@ import joblib
 
 app = Flask(__name__, template_folder='.', static_folder='.', static_url_path='')
 
-# ==============================
-# LOAD ML MODEL & DATA
-# ==============================
+# Load Model & CSV
 model = joblib.load("crop_model.pkl")
 encoder = joblib.load("label_encoder.pkl")
 fertilizer_data = pd.read_csv("fertilizer_data.csv")
 
-
-# ==============================
-# HOME
-# ==============================
 @app.route("/")
 def home():
     return render_template("index.html")
 
-
-# ==============================
-# CROP YIELD PREDICTION
-# ==============================
 @app.route("/predict", methods=["POST"])
 def predict():
     crop = request.form["crop"]
@@ -32,32 +22,17 @@ def predict():
     humidity = float(request.form["humidity"])
 
     if crop not in encoder.classes_:
-        return render_template(
-            "index.html",
-            error="❌ Invalid Crop Selected."
-        )
+        return render_template("index.html", error="❌ Invalid Crop Selected.")
 
     crop_encoded = encoder.transform([crop])[0]
     prediction = model.predict([[crop_encoded, rainfall, temperature, humidity]])
 
-    return render_template(
-        "result.html",
-        crop=crop,
-        prediction=round(prediction[0], 2)
-    )
+    return render_template("result.html", crop=crop, prediction=round(prediction[0], 2))
 
-
-# ==============================
-# FERTILIZER FORM PAGE
-# ==============================
 @app.route('/fertilizer', methods=['GET', 'POST'])
 def fertilizer():
     return render_template('fertilizer.html')
 
-
-# ==============================
-# FERTILIZER RESULT
-# ==============================
 @app.route("/fertilizer_result", methods=["POST"])
 def fertilizer_result():
     crop = request.form["crop"]
@@ -75,16 +50,6 @@ def fertilizer_result():
 
     if days < 0:
         return "Invalid plantation date."
-
-    required_columns = [
-        "Crop", "Variety", "Soil_Type", "Season",
-        "Irrigation", "Region", "Min_Days", "Max_Days",
-        "Fertilizer", "Dose", "Weedicide", "Weed_Dose"
-    ]
-
-    missing_columns = [col for col in required_columns if col not in fertilizer_data.columns]
-    if missing_columns:
-        return f"<h2>CSV Column Error</h2><p>Missing columns: {', '.join(missing_columns)}</p>"
 
     def match_value(csv_value, user_value):
         csv_val = str(csv_value).strip()
@@ -129,41 +94,24 @@ def fertilizer_result():
         weedicide=weedicide, weed_dose=weed_dose, no_recommendation=False
     )
 
-
-# ==============================
-# FERTILIZER DOSE PAGE
-# ==============================
-@app.route("/fertilizer_dose")
-def fertilizer_dose():
-    return render_template(
-        "fertilizer_dose.html",
-        crop=request.args.get("crop", "N/A"),
-        variety=request.args.get("variety", "N/A"),
-        days=request.args.get("days", "0"),
-        height=request.args.get("height", "0"),
-        fertilizer=request.args.get("fertilizer", "N/A"),
-        dose=request.args.get("dose", "N/A")
-    )
-
-
-# ==============================
-# WEED CONTROL PAGE
-# ==============================
 @app.route('/weed_control')
 def weed_control():
+    crop = request.args.get('crop', '')
+    variety = request.args.get('variety', '')
+    days = request.args.get('days', '')
+    height = request.args.get('height', '')
+    weedicide = request.args.get('weedicide', '')
+    weed_dose = request.args.get('weed_dose', '')
+
     return render_template(
         'weed_control.html',
-        crop=request.args.get('crop', 'N/A'),
-        variety=request.args.get('variety', 'N/A'),
-        days=request.args.get('days', '0'),
-        height=request.args.get('height', '0'),
-        weedicide=request.args.get('weedicide', 'None'),
-        weed_dose=request.args.get('weed_dose', 'N/A')
+        crop=crop,
+        variety=variety,
+        days=days,
+        height=height,
+        weedicide=weedicide,
+        weed_dose=weed_dose
     )
 
-
-# ==============================
-# RUN APPLICATION
-# ==============================
 if __name__ == "__main__":
     app.run(debug=True)
