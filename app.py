@@ -67,19 +67,7 @@ def predict():
 # ==============================
 @app.route('/fertilizer', methods=['GET', 'POST'])
 def fertilizer():
-    # ... तुमचा जुना मॅचिंगचा कोड ...
-    
-    # render_template करताना सर्व variables पाठवणे गरजेचे आहे:
-    return render_template(
-        'fertilizer_menu.html',
-        crop=crop,
-        variety=variety,
-        days=days,
-        height=height,
-        recommendations=recommendations,
-        weedicide=weedicide,
-        weed_dose=weed_dose
-    )
+    return render_template('fertilizer.html')
 
 
 # ==============================
@@ -166,8 +154,8 @@ def fertilizer_result():
     recommendations = matches.to_dict("records")
 
     first_result = matches.iloc[0]
-    weedicide = first_result["Weedicide"]
-    weed_dose = first_result["Weed_Dose"]
+    weedicide = str(first_result["Weedicide"])
+    weed_dose = str(first_result["Weed_Dose"])
 
     return render_template(
         "fertilizer_menu.html",
@@ -181,12 +169,12 @@ def fertilizer_result():
 def fertilizer_dose():
     return render_template(
         "fertilizer_dose.html",
-        crop=request.args.get("crop"),
-        variety=request.args.get("variety"),
-        days=request.args.get("days"),
-        height=request.args.get("height"),
-        fertilizer=request.args.get("fertilizer"),
-        dose=request.args.get("dose")
+        crop=request.args.get("crop", "N/A"),
+        variety=request.args.get("variety", "N/A"),
+        days=request.args.get("days", "0"),
+        height=request.args.get("height", "0"),
+        fertilizer=request.args.get("fertilizer", "N/A"),
+        dose=request.args.get("dose", "N/A")
     )
 
 
@@ -196,10 +184,10 @@ def fertilizer_dose():
 
 @app.route('/weed_control')
 def weed_control():
-    crop = request.args.get('crop', '')
-    variety = request.args.get('variety', '')
-    days = request.args.get('days', '')
-    height = request.args.get('height', '')
+    crop = request.args.get('crop', 'N/A')
+    variety = request.args.get('variety', 'N/A')
+    days = request.args.get('days', '0')
+    height = request.args.get('height', '0')
     weedicide = request.args.get('weedicide', 'None')
     weed_dose = request.args.get('weed_dose', 'N/A')
 
@@ -212,6 +200,7 @@ def weed_control():
         weedicide=weedicide,
         weed_dose=weed_dose
     )
+
 # ==============================
 # RUN APPLICATION
 # ==============================
