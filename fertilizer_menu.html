@@ -110,6 +110,11 @@
                     <div class="recommendation">
                         <h3>🌱 No Weedicide Required</h3>
                         <p>Monitor the crop and maintain proper field sanitation.</p>
+
+                        <a href="{{ url_for('weed_control', crop=crop, variety=variety, days=days, height=height, weedicide='None', weed_dose='N/A') }}" class="btn green" style="margin-top: 10px;">
+                            Open Weed Control Details
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
                     </div>
                 {% endif %}
             </div>
