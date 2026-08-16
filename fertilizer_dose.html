@@ -144,6 +144,26 @@
             background: #1b5e20;
         }
 
+        /* Language Switcher Styling */
+        .lang-container {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+        }
+        #google_translate_element select {
+            background-color: #ffffff;
+            color: #2e7d32;
+            border: 1px solid #2e7d32;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            outline: none;
+        }
+        .goog-te-banner-frame { display: none !important; }
+        body { top: 0px !important; }
+
         @media (max-width: 600px) {
 
             .crop-info {
@@ -174,6 +194,10 @@
         <li><a href="/">Home</a></li>
         <li><a href="/#prediction">Prediction</a></li>
         <li><a href="/#features">Services</a></li>
+        <!-- Language Selector Dropdown -->
+        <li class="lang-container">
+            <div id="google_translate_element"></div>
+        </li>
     </ul>
 </nav>
 
@@ -256,6 +280,18 @@
     </div>
 
 </section>
+
+<!-- Google Translate Script -->
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'mr,hi,en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+        }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
