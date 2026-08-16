@@ -69,17 +69,16 @@
     <div class="bg-overlay"></div>
     <div class="bg-image"></div>
 
-    <nav>
+   <nav>
         <div class="logo">
             <i class="fa-solid fa-wheat-awn"></i> AgriPredict
         </div>
         <ul>
+            <!-- नवीन पेजेस उघडण्यासाठी प्रॉपर Flask Routes -->
             <li><a href="{{ url_for('home') }}">Home</a></li>
-            <li><a href="#prediction">Prediction</a></li>
-            <li><a href="#features">Services</a></li>
-            <li><a href="#">Contact</a></li>
-            
-            <!-- नवीन जोडलेले Register बटण -->
+            <li><a href="{{ url_for('prediction_page') }}">Prediction</a></li>
+            <li><a href="{{ url_for('services_page') }}">Services</a></li>
+            <li><a href="{{ url_for('contact_page') }}">Contact</a></li>
             <li><a href="{{ url_for('register') }}" class="btn-register">Register</a></li>
 
             <!-- Language Selector Dropdown -->
