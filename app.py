@@ -69,7 +69,6 @@ def predict():
 def fertilizer():
     return render_template('fertilizer.html')
 
-
 # ==============================
 # FERTILIZER RESULT
 # ==============================
