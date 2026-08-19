@@ -264,6 +264,7 @@ nav ul li a:hover {
     gap: 22px;
     width: 100%;
     max-width: 540px;
+    margin: 0 auto;
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
